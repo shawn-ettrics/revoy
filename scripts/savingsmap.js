@@ -72,6 +72,7 @@ tripsInput.defaultValue = 10
 tripsInput.setAttribute('min', '1');
 dieselInput.defaultValue = 4.5
 dieselInput.setAttribute('min', '0.1');
+dieselInput.setAttribute('step', '0.1');
 
 
 const segmentDistance = 1 //(mile)
