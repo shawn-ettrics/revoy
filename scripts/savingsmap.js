@@ -59,6 +59,8 @@ geocoders.forEach( geocoder => {
         geocoder.style.zIndex = 1
     }
     geocoder.style.boxShadow = 'none'
+    geocoder.style.maxWidth = 'unset'
+    geocoder.style.width = '100%'
 } )
 
 
