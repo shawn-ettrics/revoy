@@ -63,6 +63,13 @@ geocoders.forEach( geocoder => {
     geocoder.style.width = '100%'
 } )
 
+const tripsInput = document.querySelector('#trips')
+const dieselInput = document.querySelector('#diesel-price')
+const trucksInput = document.querySelector('#trucks')
+tripsInput.defaultValue = 5
+tripsInput.defaultValue = 10 
+dieselInput.defaultValue = 4.5
+
 
 const segmentDistance = 1 //(mile)
 
