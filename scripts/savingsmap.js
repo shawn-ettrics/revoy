@@ -251,7 +251,7 @@ const calculateTimeSaved = (segments) => {
     timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60;
     totalElevationGain = elevationGains.reduce((acc, curr) => acc + curr, 0) * 5280; // Convert miles to feet
     
-    calculateBtn.disabled = false
+    // calculateBtn.disabled = false
     console.log('calcTime end')
 };
 
