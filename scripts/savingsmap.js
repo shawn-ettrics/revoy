@@ -202,6 +202,7 @@ const getElevation = async (segments) => {
         
         elevations.push(startElevation, endElevation);
     }
+    console.log('elevations: ', elevations)
 
     calculateTimeSaved(segments);
 };
@@ -210,6 +211,7 @@ const getElevation = async (segments) => {
 
 
 const calculateTimeSaved = (segments) => {
+    console.log('calcTime start')
     timeSaved = []
     elevationGains = []
 
@@ -249,7 +251,8 @@ const calculateTimeSaved = (segments) => {
     timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60;
     totalElevationGain = elevationGains.reduce((acc, curr) => acc + curr, 0) * 5280; // Convert miles to feet
     
-    calculateBtn.disabled = false
+    // calculateBtn.disabled = false
+    console.log('calcTime end')
 };
 
 function calculateMetrics() {
