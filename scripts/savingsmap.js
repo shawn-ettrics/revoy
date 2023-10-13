@@ -34,9 +34,32 @@ const destinationGeocoder = new MapboxGeocoder({
     flyTo: false, // Disable the flyTo animation
 })
 
+const routeBtn = document.querySelector('#route-btn')
+routeBtn.disabled = true
+
+const calculateBtn = document.querySelector('#calculate-btn')
+// calculateBtn.disabled = true
+calculateBtn.onclick = (e) => {
+    e.preventDefault()
+    calculateMetrics()
+}
+
+
+
 // Append geocoders to your divs
 document.getElementById('starting-point').appendChild(startingPointGeocoder.onAdd(map))
 document.getElementById('destination').appendChild(destinationGeocoder.onAdd(map))
+
+const geocoders = document.querySelectorAll('.mapboxgl-ctrl-geocoder')
+geocoders.forEach( geocoder => {
+    geocoder.onmouseenter = () => {
+        geocoder.style.zIndex = 10
+    }
+    geocoder.onmouseleave = () => {
+        geocoder.style.zIndex = 1
+    }
+    geocoder.style.boxShadow = 'none'
+} )
 
 
 const segmentDistance = 1 //(mile)
@@ -60,9 +83,11 @@ let totalTimeSaved
 // Function to handle route logic based on geocoder results
 const handleRoute = () => {
     if (startingPointCoordinates && destinationCoordinates) {
+        routeBtn.disabled = false
         getRoute()
     } else {
         flyToValidPoint()
+        routeBtn.disabled
     }
 }
 
@@ -124,12 +149,7 @@ destinationGeocoder.on('clear', () => {
     removeRoute()
 })
 
-const calculateBtn = document.querySelector('#calculate-btn')
-// calculateBtn.disabled = true
-calculateBtn.onclick = (e) => {
-    e.preventDefault()
-    calculateMetrics()
-}
+
 
 
 
@@ -151,7 +171,7 @@ map.on('load', () => {
 
 
 const getRoute = () => {
-    // calculateBtn.disabled = true
+    calculateBtn.disabled = true
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${startingPointCoordinates[0]},${startingPointCoordinates[1]};${destinationCoordinates[0]},${destinationCoordinates[1]}?access_token=${mapboxgl.accessToken}&geometries=geojson`;
     fetch(url)
         .then(response => response.json())
@@ -211,7 +231,6 @@ const getElevation = async (segments) => {
 
 
 const calculateTimeSaved = (segments) => {
-    console.log('calcTime start')
     timeSaved = []
     elevationGains = []
 
@@ -251,8 +270,7 @@ const calculateTimeSaved = (segments) => {
     timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60;
     totalElevationGain = elevationGains.reduce((acc, curr) => acc + curr, 0) * 5280; // Convert miles to feet
     
-    // calculateBtn.disabled = false
-    console.log('calcTime end')
+    calculateBtn.disabled = false
 };
 
 function calculateMetrics() {
