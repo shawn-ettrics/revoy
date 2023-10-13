@@ -151,7 +151,7 @@ map.on('load', () => {
 
 
 const getRoute = () => {
-    calculateBtn.disabled = true
+    // calculateBtn.disabled = true
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${startingPointCoordinates[0]},${startingPointCoordinates[1]};${destinationCoordinates[0]},${destinationCoordinates[1]}?access_token=${mapboxgl.accessToken}&geometries=geojson`;
     fetch(url)
         .then(response => response.json())
@@ -251,7 +251,7 @@ const calculateTimeSaved = (segments) => {
     timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60;
     totalElevationGain = elevationGains.reduce((acc, curr) => acc + curr, 0) * 5280; // Convert miles to feet
     
-    // calculateBtn.disabled = false
+    calculateBtn.disabled = false
     console.log('calcTime end')
 };
 
