@@ -266,17 +266,12 @@ const calculateTimeSaved = (segments) => {
         const grade = elevationDifferenceInMiles / segmentDistance;
         grades.push(grade);
 
-        // Calculate speed difference
-        let speedDifference;
-        if (grade <= 0) {
-            speedDifference = 0;
-        } else {
-            speedDifference = 55 - (35 + ((0.06 - grade) * 20 / 0.06));
-        }
-        speedDifferences.push(speedDifference);
+        const currentSpeed = (35 + ((0.06 - grade) * 20 / 0.06));
+        const currentTime = segmentDistance / currentSpeed;
+        const newTime = segmentDistance / 55;
 
         // Calculate time saved (converted from hours to minutes)
-        const timeSavedForSegment = speedDifference === 0 ? 0 : (segmentDistance / speedDifference);
+        const timeSavedForSegment = currentTime - newTime;
         timeSaved.push(timeSavedForSegment);
     }
 
@@ -295,7 +290,7 @@ function calculateMetrics() {
     const baseMileage = turf.length(turf.lineString(route), { units: 'miles' });
     const totalMileage = baseMileage * (isRoundTrip ? 2 : 1) * numOfTrucks * tripsPerMonth;
     const savings = Math.round((totalMileage * (dieselPrice / 7)) * 0.05);
-    const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.0010180).toFixed(1));
+    const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.0010180 * 2205).toFixed(1));
     const totalTimeSaved = Math.round(timeSavedPerTrip * numOfTrucks * tripsPerMonth * (isRoundTrip ? 2 : 1));
 
     console.log('Number of Trucks:', numOfTrucks);
