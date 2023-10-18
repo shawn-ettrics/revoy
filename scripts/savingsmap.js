@@ -36,6 +36,9 @@ const destinationGeocoder = new MapboxGeocoder({
 
 const routeBtn = document.querySelector('#route-btn')
 routeBtn.disabled = true
+routeBtn.onclick = e => {
+    e.preventDefault()
+} 
 
 const calculateBtn = document.querySelector('#calculate-btn')
 // calculateBtn.disabled = true
@@ -103,12 +106,14 @@ const destinationPointMarker = new mapboxgl.Marker({element: customMarkerElem.cl
 startingPointGeocoder.on('result', e => {
     startingPointCoordinates = e.result.geometry.coordinates
     startingPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
+    flyToValidPoint()
     handleRoute()
 })
 
 destinationGeocoder.on('result', e => {
     destinationCoordinates = e.result.geometry.coordinates
     destinationPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
+    flyToValidPoint()
     handleRoute()
 })
 
@@ -130,6 +135,7 @@ document.querySelector('#route-1').addEventListener('click', function(e) {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
     triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
+    routeBtn.click()
 });
 
 document.querySelector('#route-2').addEventListener('click', function(e) {
@@ -137,6 +143,7 @@ document.querySelector('#route-2').addEventListener('click', function(e) {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
     triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
+    routeBtn.click()
 });
 
 document.querySelector('#route-3').addEventListener('click', function(e) {
@@ -144,6 +151,7 @@ document.querySelector('#route-3').addEventListener('click', function(e) {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
     triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
+    routeBtn.click()
 });
 
 function triggerGeocoderQuery(geocoder, query) {
@@ -162,7 +170,7 @@ const handleRoute = () => {
         routeBtn.disabled = false
         getRoute()
     } else {
-        flyToValidPoint()
+        // flyToValidPoint()
         routeBtn.disabled = true
     }
 }
@@ -177,7 +185,7 @@ const removeRoute = () => {
             map.removeSource(layerId);
         }
     });
-    flyToValidPoint()
+    // flyToValidPoint()
 }
 
 const flyToValidPoint = () => {
