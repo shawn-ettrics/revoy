@@ -36,6 +36,9 @@ const destinationGeocoder = new MapboxGeocoder({
 
 const routeBtn = document.querySelector('#route-btn')
 routeBtn.disabled = true
+routeBtn.onclick = e => {
+    e.preventDefault()
+} 
 
 const calculateBtn = document.querySelector('#calculate-btn')
 // calculateBtn.disabled = true
@@ -45,8 +48,6 @@ calculateBtn.onclick = (e) => {
 }
 
 
-
-// Append geocoders to your divs
 document.getElementById('starting-point').appendChild(startingPointGeocoder.onAdd(map))
 document.getElementById('destination').appendChild(destinationGeocoder.onAdd(map))
 
@@ -92,43 +93,6 @@ let totalTimeSaved
 let revoylessSpeed = []
 
 
-
-
-// Function to handle route logic based on geocoder results
-const handleRoute = () => {
-    if (startingPointCoordinates && destinationCoordinates) {
-        routeBtn.disabled = false
-        getRoute()
-    } else {
-        flyToValidPoint()
-        routeBtn.disabled
-    }
-}
-
-const removeRoute = () => {
-    const layerIds = ['route-shadow', 'route-border', 'route', 'route-shadow-top', 'route-shadow-bot'];
-    layerIds.forEach(layerId => {
-        if (map.getLayer(layerId)) {
-            map.removeLayer(layerId);
-        }
-        if (map.getSource(layerId)) {
-            map.removeSource(layerId);
-        }
-    });
-    flyToValidPoint()
-}
-
-const flyToValidPoint = () => {
-    if (startingPointCoordinates || destinationCoordinates) {
-        const validCoordinates = startingPointCoordinates ? startingPointCoordinates : destinationCoordinates
-        map.flyTo({
-            center: validCoordinates,
-            zoom: 10,
-            offset: [window.innerWidth * 0.15, 0]  // Offset to shift center to the right
-        })
-    }
-}
-
 const customMarkerElem = new Image();
 customMarkerElem.src = markerURL;
 customMarkerElem.style.width = '120px';
@@ -142,6 +106,7 @@ const destinationPointMarker = new mapboxgl.Marker({element: customMarkerElem.cl
 startingPointGeocoder.on('result', e => {
     startingPointCoordinates = e.result.geometry.coordinates
     startingPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
+    flyToValidPoint()
     handleRoute()
     const cityName = e.result.context.find(item => item.id.includes('place')).text;
     console.log('City:', cityName);
@@ -150,6 +115,7 @@ startingPointGeocoder.on('result', e => {
 destinationGeocoder.on('result', e => {
     destinationCoordinates = e.result.geometry.coordinates
     destinationPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
+    flyToValidPoint()
     handleRoute()
     const cityName = e.result.context.find(item => item.id.includes('place')).text;
     console.log('City:', cityName);
@@ -171,11 +137,77 @@ destinationGeocoder.on('clear', () => {
 })
 
 
+document.querySelector('#route-1').addEventListener('click', function(e) {
+    e.preventDefault();
+    clearPoints()
+    triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
+    triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
+    routeBtn.click()
+});
+
+document.querySelector('#route-2').addEventListener('click', function(e) {
+    e.preventDefault();
+    clearPoints()
+    triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
+    triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
+    routeBtn.click()
+});
+
+document.querySelector('#route-3').addEventListener('click', function(e) {
+    e.preventDefault();
+    clearPoints()
+    triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
+    triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
+    routeBtn.click()
+});
+
+function triggerGeocoderQuery(geocoder, query) {
+    geocoder.query(query);
+}
+
+function clearPoints() {
+    startingPointGeocoder.clear()
+    destinationGeocoder.clear()
+    destinationPointMarker.remove()
+}
+
+// Function to handle route logic based on geocoder results
+const handleRoute = () => {
+    if (startingPointCoordinates && destinationCoordinates) {
+        routeBtn.disabled = false
+        getRoute()
+    } else {
+        // flyToValidPoint()
+        routeBtn.disabled = true
+    }
+}
+
+const removeRoute = () => {
+    const layerIds = ['route-shadow', 'route-border', 'route', 'route-shadow-top', 'route-shadow-bot'];
+    layerIds.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+            map.removeLayer(layerId);
+        }
+        if (map.getSource(layerId)) {
+            map.removeSource(layerId);
+        }
+    });
+    // flyToValidPoint()
+}
+
+const flyToValidPoint = () => {
+    if (startingPointCoordinates || destinationCoordinates) {
+        const validCoordinates = startingPointCoordinates ? startingPointCoordinates : destinationCoordinates
+        map.flyTo({
+            center: validCoordinates,
+            zoom: 10,
+            offset: [window.innerWidth * 0.15, 0]  // Offset to shift center to the right
+        })
+    }
+}
 
 
 
-
-// ... [previous code remains unchanged]
 
 // Add the terrain source
 map.on('load', () => {
