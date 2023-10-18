@@ -21,12 +21,17 @@
         pointer-events: none;
     }
 
+
     .mapboxgl-ctrl-bottom-right {
         display: none;
     }
     .mapboxgl-ctrl-bottom-left {
         display: none;
     }
+    .mapboxgl-ctrl-geocoder input:focus {
+        outline: none;
+    }
+    
 
 form {
     position: absolute;

@@ -264,7 +264,9 @@ const getRoute = () => {
             map.once('idle', function() {
                 // Now, the map has finished loading and rendering, fetch elevations
                 getElevation(segments);
-
+                map.fitBounds(bounds, { 
+                    padding: { left: paddingLeft, top: paddingOther, bottom: paddingOther, right: paddingOther },
+                });
             });
         });
 };
@@ -345,8 +347,8 @@ function calculateMetrics() {
 
     const baseMileage = turf.length(turf.lineString(route), { units: 'miles' });
     const totalMileage = baseMileage * (isRoundTrip ? 2 : 1) * numOfTrucks * tripsPerMonth;
-    const savings = Math.round((totalMileage * (dieselPrice / 7)) * 0.05);
-    const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.0010180 * 2205).toFixed(1));
+    const savings = Math.round((totalMileage * (dieselPrice / 7)) * 0.05).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.0010180 * 2205)).toLocaleString('en-US', { maximumFractionDigits: 0 });
     const totalTimeSaved = Math.round(timeSavedPerTrip * numOfTrucks * tripsPerMonth * (isRoundTrip ? 2 : 1));
 
     console.log('Number of Trucks:', numOfTrucks);
