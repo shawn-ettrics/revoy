@@ -75,7 +75,7 @@ dieselInput.setAttribute('min', '0.1');
 dieselInput.setAttribute('step', '0.1');
 
 
-const segmentDistance = 1 //(mile)
+const distanceSegment = 1 //(mile)
 
 // Variables to hold data
 let startingPointCoordinates
@@ -89,6 +89,7 @@ let timeSaved = [];
 let elevations = [];
 let elevationGains = [];
 let totalTimeSaved
+let revoylessSpeed = []
 
 
 
@@ -191,7 +192,7 @@ const getRoute = () => {
         .then(data => {
             route = data.routes[0].geometry.coordinates;
             const routeLineString = turf.lineString(route);
-            const chunks = turf.lineChunk(routeLineString, segmentDistance, { units: 'miles' });
+            const chunks = turf.lineChunk(routeLineString, distanceSegment, { units: 'miles' });
             const segments = chunks.features.map(chunk => [chunk.geometry.coordinates[0], chunk.geometry.coordinates[chunk.geometry.coordinates.length - 1]]);
             
 
@@ -246,6 +247,8 @@ const getElevation = async (segments) => {
 const calculateTimeSaved = (segments) => {
     timeSaved = []
     elevationGains = []
+    revoylessSpeed = []
+    speedDifferences = []
 
     if (elevations.length !== 2 * segments.length) {
         console.error("Mismatch in elevations and segments array lengths:", elevations, segments);
@@ -263,19 +266,27 @@ const calculateTimeSaved = (segments) => {
         }
 
         // Calculate grade
-        const grade = elevationDifferenceInMiles / segmentDistance;
+        const grade = elevationDifferenceInMiles / distanceSegment;
         grades.push(grade);
 
-        const currentSpeed = (35 + ((0.06 - grade) * 20 / 0.06));
-        const currentTime = segmentDistance / currentSpeed;
-        const newTime = segmentDistance / 55;
+        const currentSpeed = (35 + ((0.06 - Math.max(grade, 0)) * 20 / 0.06));
+        revoylessSpeed.push(currentSpeed)
+
+        const speedDiff = 55 - currentSpeed
+        speedDifferences.push(speedDiff)
+
+
+
+        const currentTime = distanceSegment / currentSpeed;
+        const newTime = distanceSegment / 55;
 
         // Calculate time saved (converted from hours to minutes)
-        const timeSavedForSegment = currentTime - newTime;
+        const timeSavedForSegment = (currentTime - newTime) * 60;
+        // const timeSavedForSegment = distanceSegment / speedDiff
         timeSaved.push(timeSavedForSegment);
     }
 
-    timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60;
+    timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60; //convert back to hours
     totalElevationGain = elevationGains.reduce((acc, curr) => acc + curr, 0) * 5280; // Convert miles to feet
     
     calculateBtn.disabled = false
@@ -297,10 +308,11 @@ function calculateMetrics() {
     console.log('Trips Per Month:', tripsPerMonth);
     console.log('Diesel Price:', dieselPrice);
     console.log("Grades:", grades);
-    console.log("Speed Differences:", speedDifferences);
-    console.log("Time Saved for each segment (in minutes):", timeSaved);
+    console.log("Speed without Revoy (mph):", revoylessSpeed);
+    console.log("Speed Differences (mph):", speedDifferences);
+    console.log("Time Saved for each segment (minutes):", timeSaved);
 
-    console.log("Elevation for each segment (in minutes):", elevations);
+
     console.log("Total Elevation Gain (in feet):", totalElevationGain);
     console.log("Total Mileage (in miles):", totalMileage);
     console.log("Savings in Dollars:", savings);
