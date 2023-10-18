@@ -45,8 +45,6 @@ calculateBtn.onclick = (e) => {
 }
 
 
-
-// Append geocoders to your divs
 document.getElementById('starting-point').appendChild(startingPointGeocoder.onAdd(map))
 document.getElementById('destination').appendChild(destinationGeocoder.onAdd(map))
 
@@ -92,43 +90,6 @@ let totalTimeSaved
 let revoylessSpeed = []
 
 
-
-
-// Function to handle route logic based on geocoder results
-const handleRoute = () => {
-    if (startingPointCoordinates && destinationCoordinates) {
-        routeBtn.disabled = false
-        getRoute()
-    } else {
-        flyToValidPoint()
-        routeBtn.disabled
-    }
-}
-
-const removeRoute = () => {
-    const layerIds = ['route-shadow', 'route-border', 'route', 'route-shadow-top', 'route-shadow-bot'];
-    layerIds.forEach(layerId => {
-        if (map.getLayer(layerId)) {
-            map.removeLayer(layerId);
-        }
-        if (map.getSource(layerId)) {
-            map.removeSource(layerId);
-        }
-    });
-    flyToValidPoint()
-}
-
-const flyToValidPoint = () => {
-    if (startingPointCoordinates || destinationCoordinates) {
-        const validCoordinates = startingPointCoordinates ? startingPointCoordinates : destinationCoordinates
-        map.flyTo({
-            center: validCoordinates,
-            zoom: 10,
-            offset: [window.innerWidth * 0.15, 0]  // Offset to shift center to the right
-        })
-    }
-}
-
 const customMarkerElem = new Image();
 customMarkerElem.src = markerURL;
 customMarkerElem.style.width = '120px';
@@ -164,11 +125,74 @@ destinationGeocoder.on('clear', () => {
 })
 
 
+document.querySelector('#route-1').addEventListener('click', function(e) {
+    e.preventDefault();
+    clearPoints()
+    triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
+    triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
+});
+
+document.querySelector('#route-2').addEventListener('click', function(e) {
+    e.preventDefault();
+    clearPoints()
+    triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
+    triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
+});
+
+document.querySelector('#route-3').addEventListener('click', function(e) {
+    e.preventDefault();
+    clearPoints()
+    triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
+    triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
+});
+
+function triggerGeocoderQuery(geocoder, query) {
+    geocoder.query(query);
+}
+
+function clearPoints() {
+    startingPointGeocoder.clear()
+    destinationGeocoder.clear()
+    destinationPointMarker.remove()
+}
+
+// Function to handle route logic based on geocoder results
+const handleRoute = () => {
+    if (startingPointCoordinates && destinationCoordinates) {
+        routeBtn.disabled = false
+        getRoute()
+    } else {
+        flyToValidPoint()
+        routeBtn.disabled = true
+    }
+}
+
+const removeRoute = () => {
+    const layerIds = ['route-shadow', 'route-border', 'route', 'route-shadow-top', 'route-shadow-bot'];
+    layerIds.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+            map.removeLayer(layerId);
+        }
+        if (map.getSource(layerId)) {
+            map.removeSource(layerId);
+        }
+    });
+    flyToValidPoint()
+}
+
+const flyToValidPoint = () => {
+    if (startingPointCoordinates || destinationCoordinates) {
+        const validCoordinates = startingPointCoordinates ? startingPointCoordinates : destinationCoordinates
+        map.flyTo({
+            center: validCoordinates,
+            zoom: 10,
+            offset: [window.innerWidth * 0.15, 0]  // Offset to shift center to the right
+        })
+    }
+}
 
 
 
-
-// ... [previous code remains unchanged]
 
 // Add the terrain source
 map.on('load', () => {

@@ -53,3 +53,9 @@ form {
     height: 18px;
     border-radius: 100%;
 }
+
+.button-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
