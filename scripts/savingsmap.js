@@ -20,7 +20,7 @@ const startingPointGeocoder = new MapboxGeocoder({
     placeholder: 'Starting Point',
     country: 'US',
     marker: false,
-    flyTo: false  // Disable the flyTo animation
+    flyTo: false,  // Disable the flyTo animation
 })
 
 // Geocoder initialization for destination
@@ -38,6 +38,7 @@ const routeBtn = document.querySelector('#route-btn')
 routeBtn.disabled = true
 routeBtn.onclick = e => {
     e.preventDefault()
+    clearPoints()
 } 
 
 const calculateBtn = document.querySelector('#calculate-btn')
@@ -46,6 +47,7 @@ calculateBtn.onclick = (e) => {
     e.preventDefault()
     calculateMetrics()
 }
+
 
 
 document.getElementById('starting-point').appendChild(startingPointGeocoder.onAdd(map))
@@ -58,6 +60,9 @@ geocoders.forEach( geocoder => {
     }
     geocoder.onmouseleave = () => {
         geocoder.style.zIndex = 1
+    }
+    geocoder.onclick = () => {
+        geocoder.querySelector('.suggestions').style.opacity = '1'
     }
     geocoder.style.boxShadow = 'none'
     geocoder.style.maxWidth = 'unset'
@@ -91,6 +96,7 @@ let elevations = [];
 let elevationGains = [];
 let totalTimeSaved
 let revoylessSpeed = []
+let isRoutePredefined = false
 
 
 const customMarkerElem = new Image();
@@ -101,13 +107,12 @@ const startingPointMarker = new mapboxgl.Marker({element: customMarkerElem.clone
 const destinationPointMarker = new mapboxgl.Marker({element: customMarkerElem.cloneNode(true)});
 
 
-
 // Listen for result events on geocoders to get coordinates and invoke handleRoute
 startingPointGeocoder.on('result', e => {
     startingPointCoordinates = e.result.geometry.coordinates
     startingPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
-    flyToValidPoint()
-    handleRoute()
+    // flyToValidPoint()
+    handleResult()
     const cityName = e.result.context.find(item => item.id.includes('place')).text;
     console.log('City:', cityName);
 })
@@ -115,8 +120,8 @@ startingPointGeocoder.on('result', e => {
 destinationGeocoder.on('result', e => {
     destinationCoordinates = e.result.geometry.coordinates
     destinationPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
-    flyToValidPoint()
-    handleRoute()
+    // flyToValidPoint()
+    handleResult()
     const cityName = e.result.context.find(item => item.id.includes('place')).text;
     console.log('City:', cityName);
 
@@ -126,7 +131,6 @@ startingPointGeocoder.on('clear', () => {
     startingPointCoordinates = null
     startingPointMarker.remove()
     removeRoute()
-
 
 })
 
@@ -162,22 +166,23 @@ document.querySelector('#route-3').addEventListener('click', function(e) {
 });
 
 function triggerGeocoderQuery(geocoder, query) {
-    geocoder.query(query);
+    geocoder.query(query)
+    geocoder.container.querySelector('.suggestions').style.opacity = 0
 }
 
 function clearPoints() {
     startingPointGeocoder.clear()
     destinationGeocoder.clear()
-    destinationPointMarker.remove()
+    // destinationPointMarker.remove()
 }
 
 // Function to handle route logic based on geocoder results
-const handleRoute = () => {
+const handleResult = () => {
     if (startingPointCoordinates && destinationCoordinates) {
         routeBtn.disabled = false
         getRoute()
     } else {
-        // flyToValidPoint()
+        flyToValidPoint()
         routeBtn.disabled = true
     }
 }
@@ -259,6 +264,7 @@ const getRoute = () => {
             map.once('idle', function() {
                 // Now, the map has finished loading and rendering, fetch elevations
                 getElevation(segments);
+
             });
         });
 };
