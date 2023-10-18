@@ -143,18 +143,25 @@ startingPointGeocoder.on('result', e => {
     startingPointCoordinates = e.result.geometry.coordinates
     startingPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
     handleRoute()
+    const cityName = e.result.context.find(item => item.id.includes('place')).text;
+    console.log('City:', cityName);
 })
 
 destinationGeocoder.on('result', e => {
     destinationCoordinates = e.result.geometry.coordinates
     destinationPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
     handleRoute()
+    const cityName = e.result.context.find(item => item.id.includes('place')).text;
+    console.log('City:', cityName);
+
 })
 
 startingPointGeocoder.on('clear', () => {
     startingPointCoordinates = null
     startingPointMarker.remove()
     removeRoute()
+
+
 })
 
 destinationGeocoder.on('clear', () => {
