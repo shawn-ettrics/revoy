@@ -63,6 +63,7 @@ geocoders.forEach( geocoder => {
     }
     geocoder.onclick = () => {
         geocoder.querySelector('.suggestions').style.opacity = '1'
+        predefinedRoute = false
     }
     geocoder.style.boxShadow = 'none'
     geocoder.style.maxWidth = 'unset'
@@ -97,7 +98,7 @@ let elevations = [];
 let elevationGains = [];
 let totalTimeSaved
 let revoylessSpeed = []
-let isRoutePredefined = false
+let predefinedRoute = false
 
 
 const customMarkerElem = new Image();
@@ -190,7 +191,7 @@ const handleResult = () => {
     if (startingPointCoordinates && destinationCoordinates) {
         routeBtn.disabled = false
         getRoute()
-    } else {
+    } else if (!predefinedRoute) {
         flyToValidPoint()
         routeBtn.disabled = true
     }
