@@ -85,6 +85,7 @@ const distanceSegment = 1 //(mile)
 
 // Variables to hold data
 let startingPointCoordinates
+let startingPoint, destination
 let destinationCoordinates
 let timeSavedPerTrip
 let totalElevationGain
@@ -113,8 +114,8 @@ startingPointGeocoder.on('result', e => {
     startingPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
     // flyToValidPoint()
     handleResult()
-    const cityName = e.result.context.find(item => item.id.includes('place')).text;
-    console.log('City:', cityName);
+    startingPoint = getLocation(e)
+
 })
 
 destinationGeocoder.on('result', e => {
@@ -122,10 +123,18 @@ destinationGeocoder.on('result', e => {
     destinationPointMarker.setLngLat(e.result.geometry.coordinates).addTo(map);
     // flyToValidPoint()
     handleResult()
-    const cityName = e.result.context.find(item => item.id.includes('place')).text;
-    console.log('City:', cityName);
-
+    destination = getLocation(e)
 })
+
+function getLocation(e) {
+    if (e.result && e.result.place_name) {
+        const locationArray = e.result.place_name.split(','); // Split the place_name string into an array
+        const lastIndex = locationArray.length - 1
+        const locationName = locationArray[lastIndex - 2]? locationArray[lastIndex -2] :locationArray[lastIndex - 1]
+    
+        return locationName
+    }
+}
 
 startingPointGeocoder.on('clear', () => {
     startingPointCoordinates = null
@@ -292,6 +301,10 @@ const getElevation = async (segments) => {
 
 
 const calculateTimeSaved = (segments) => {
+    const routeText = document.querySelector('#route-text')
+    routeText? routeText.innerText = `${startingPoint} -> ${destination}`: routeText.style.display = 'none'
+
+
     timeSaved = []
     elevationGains = []
     revoylessSpeed = []
