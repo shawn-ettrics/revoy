@@ -38,7 +38,7 @@ const routeBtn = document.querySelector('#route-btn')
 routeBtn.disabled = true
 routeBtn.onclick = e => {
     e.preventDefault()
-    clearPoints()
+    // clearPoints()
 } 
 
 const calculateBtn = document.querySelector('#calculate-btn')
