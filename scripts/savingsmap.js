@@ -83,13 +83,23 @@ geocoders.forEach( geocoder => {
 const tripsInput = document.querySelector('#trips')
 const dieselInput = document.querySelector('#diesel-price')
 const trucksInput = document.querySelector('#trucks')
-trucksInput.defaultValue = 5
+// trucksInput.defaultValue = 5
 trucksInput.setAttribute('min', '1');
-tripsInput.defaultValue = 10 
-tripsInput.setAttribute('min', '1');
-dieselInput.defaultValue = 4.5
+// dieselInput.defaultValue = 4.5
 dieselInput.setAttribute('min', '0.1');
 dieselInput.setAttribute('step', '0.1');
+// tripsInput.defaultValue = 10 
+tripsInput.setAttribute('min', '1');
+
+
+const form = document.querySelector('#mapbox')
+form.onsubmit = () => {
+    [trucksInput, dieselInput, tripsInput].forEach(input => {
+        if (!input.value) {
+            input.value = input.placeholder
+        }
+    })
+}
 
 
 const distanceSegment = 1 //(mile)
