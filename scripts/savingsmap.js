@@ -35,14 +35,24 @@ const destinationGeocoder = new MapboxGeocoder({
 })
 
 const routeBtn = document.querySelector('#route-btn')
-routeBtn.disabled = true
-routeBtn.onclick = e => {
-    e.preventDefault()
-    // clearPoints()
-} 
+disableBtn(routeBtn,true)
+// routeBtn.onclick = e => {
+//     e.preventDefault()
+// } 
+
+function disableBtn(btn,disable) {
+    if (disable) {
+        btn.style.opacity = 0.7
+        btn.style.pointerEvents = 'none'
+    } else {
+        btn.style.opacity = 1
+        btn.style.pointerEvents = 'unset'
+    }
+
+}
 
 const calculateBtn = document.querySelector('#calculate-btn')
-// calculateBtn.disabled = true
+
 calculateBtn.onclick = (e) => {
     e.preventDefault()
     calculateMetrics()
@@ -189,12 +199,12 @@ function clearPoints() {
 // Function to handle route logic based on geocoder results
 const handleResult = () => {
     if (startingPointCoordinates && destinationCoordinates) {
-        routeBtn.disabled = false
+        disableBtn(routeBtn, false)
         getRoute()
     } else if (!predefinedRoute) {
         flyToValidPoint()
-        routeBtn.disabled = true
-    }
+        disableBtn(btn, true)
+    } 
 }
 
 const removeRoute = () => {
@@ -239,7 +249,7 @@ map.on('load', () => {
 
 
 const getRoute = () => {
-    calculateBtn.disabled = true
+    disableBtn(calculateBtn, true)
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${startingPointCoordinates[0]},${startingPointCoordinates[1]};${destinationCoordinates[0]},${destinationCoordinates[1]}?access_token=${mapboxgl.accessToken}&geometries=geojson`;
     fetch(url)
         .then(response => response.json())
@@ -350,7 +360,7 @@ const calculateTimeSaved = (segments) => {
     timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60; //convert back to hours
     totalElevationGain = elevationGains.reduce((acc, curr) => acc + curr, 0) * 5280; // Convert miles to feet
     
-    calculateBtn.disabled = false
+    disableBtn(calculateBtn, false)
 };
 
 function calculateMetrics() {
