@@ -39,16 +39,6 @@ disableWfBtn(routeBtn,true)
 
 const calculateBtn = document.querySelector('#calculate-btn')
 
-calculateBtn.onclick = (e) => {
-    e.preventDefault()
-
-    [trucksInput, dieselInput, tripsInput].forEach(input => {
-        if (!input.value) {
-            input.value = input.placeholder
-        }
-    })
-    calculateMetrics()
-}
 
 function disableWfBtn(btn,disable) {
     if (disable) {
@@ -96,8 +86,18 @@ dieselInput.setAttribute('step', '0.1');
 // tripsInput.defaultValue = 10 
 tripsInput.setAttribute('min', '1');
 
+calculateBtn.onclick = (e) => {
+    e.preventDefault()
 
-const form = document.querySelector('#mapbox')
+    [trucksInput, dieselInput, tripsInput].forEach(input => {
+        console.log(input)
+        if (!input.value) {
+            input.value = input.placeholder
+        }
+    })
+    calculateMetrics()
+}
+
 
 
 
@@ -176,7 +176,7 @@ document.querySelector('#route-1').onclick = (e) => {
     triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
     triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
     routeBtn.click()
-});
+};
 
 document.querySelector('#route-2').onclick = (e) => {
     e.preventDefault();
@@ -184,7 +184,7 @@ document.querySelector('#route-2').onclick = (e) => {
     triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
     triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
     routeBtn.click()
-});
+};
 
 document.querySelector('#route-3').onclick = (e) => {
     e.preventDefault();
@@ -192,7 +192,7 @@ document.querySelector('#route-3').onclick = (e) => {
     triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
     triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
     routeBtn.click()
-});
+};
 
 function triggerGeocoderQuery(geocoder, query) {
     geocoder.query(query)
