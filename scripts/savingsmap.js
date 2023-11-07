@@ -439,7 +439,7 @@ function calculateMetrics() {
             default:
                 console.log('missing value');
         }
-        console.log('hidden inputs', input.id, input.value)
+        console.log('hidden inputs', input, input.value)
     })
 }
 
