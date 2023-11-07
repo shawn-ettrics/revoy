@@ -94,7 +94,6 @@ routeBtn.onclick = () => {
 
 
 calculateBtn.onclick = (e) => {
-    e.preventDefault()
     tripsInput = document.querySelector('#trips')
     dieselInput = document.querySelector('#diesel-price')
     trucksInput = document.querySelector('#trucks')
@@ -188,7 +187,6 @@ destinationGeocoder.on('clear', () => {
 
 
 document.querySelector('#route-1').onclick = (e) => {
-    e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
     triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
@@ -196,7 +194,6 @@ document.querySelector('#route-1').onclick = (e) => {
 };
 
 document.querySelector('#route-2').onclick = (e) => {
-    e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
     triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
@@ -204,7 +201,6 @@ document.querySelector('#route-2').onclick = (e) => {
 };
 
 document.querySelector('#route-3').onclick = (e) => {
-    e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
     triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
