@@ -399,6 +399,26 @@ function calculateMetrics() {
     const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.0010180 * 2205)).toLocaleString('en-US', { maximumFractionDigits: 0 });
     const totalTimeSaved = Math.round(timeSavedPerTrip * numOfTrucks * tripsPerMonth * (isRoundTrip ? 2 : 1));
 
+    console.log('Number of Trucks:', numOfTrucks);
+    console.log('Trips Per Month:', tripsPerMonth);
+    console.log('Diesel Price:', dieselPrice);
+    console.log("Grades:", grades);
+    console.log("Speed without Revoy (mph):", revoylessSpeed);
+    console.log("Speed Differences (mph):", speedDifferences);
+    console.log("Time Saved for each segment (minutes):", timeSaved);
+
+
+    console.log("Total Elevation Gain (in feet):", totalElevationGain);
+    console.log("Total Mileage (in miles):", totalMileage);
+    console.log("Savings in Dollars:", savings);
+    console.log("CO2e Saved (tonnes):", CO2eSaved);
+    console.log("Total Time Saved (in hours):", totalTimeSaved);
+
+
+    document.querySelector('#hours-saved').innerText = totalTimeSaved;
+    document.querySelector('#dollars-saved').innerText = savings;
+    document.querySelector('#co2-saved').innerText = CO2eSaved;
+
     hiddenInputs.forEach(input => {
         switch (input.id) {
             case 'start-hidden':
@@ -419,28 +439,8 @@ function calculateMetrics() {
             default:
                 console.log('missing value');
         }
-        console.log('hidden inputs', input.value)
+        console.log('hidden inputs', input.id, input.value)
     })
-
-    console.log('Number of Trucks:', numOfTrucks);
-    console.log('Trips Per Month:', tripsPerMonth);
-    console.log('Diesel Price:', dieselPrice);
-    console.log("Grades:", grades);
-    console.log("Speed without Revoy (mph):", revoylessSpeed);
-    console.log("Speed Differences (mph):", speedDifferences);
-    console.log("Time Saved for each segment (minutes):", timeSaved);
-
-
-    console.log("Total Elevation Gain (in feet):", totalElevationGain);
-    console.log("Total Mileage (in miles):", totalMileage);
-    console.log("Savings in Dollars:", savings);
-    console.log("CO2e Saved (tonnes):", CO2eSaved);
-    console.log("Total Time Saved (in hours):", totalTimeSaved);
-
-
-    document.querySelector('#hours-saved').innerText = totalTimeSaved;
-    document.querySelector('#dollars-saved').innerText = savings;
-    document.querySelector('#co2-saved').innerText = CO2eSaved;
 }
 
 
