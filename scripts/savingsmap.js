@@ -170,28 +170,28 @@ destinationGeocoder.on('clear', () => {
 })
 
 
-document.querySelector('#route-1').addEventListener('click', function(e) {
+document.querySelector('#route-1').onclick( e => {
     e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
     triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
-    // routeBtn.click()
+    routeBtn.click()
 });
 
-document.querySelector('#route-2').addEventListener('click', function(e) {
+document.querySelector('#route-2').onclick( e => {
     e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
     triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
-    // routeBtn.click()
+    routeBtn.click()
 });
 
-document.querySelector('#route-3').addEventListener('click', function(e) {
+document.querySelector('#route-3').onclick( e => {
     e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
     triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
-    // routeBtn.click()
+    routeBtn.click()
 });
 
 function triggerGeocoderQuery(geocoder, query) {
@@ -257,7 +257,7 @@ map.on('load', () => {
 
 
 
-const getRoute = () => {
+function getRoute() {
     disableWfBtn(calculateBtn, true)
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${startingPointCoordinates[0]},${startingPointCoordinates[1]};${destinationCoordinates[0]},${destinationCoordinates[1]}?access_token=${mapboxgl.accessToken}&geometries=geojson`;
     fetch(url)
@@ -301,9 +301,7 @@ const getRoute = () => {
 };
 
 
-const getElevation = async (segments) => {
-
-
+async function getElevation(segments) {
     elevations = []
 
     for (const segment of segments) {
