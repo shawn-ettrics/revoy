@@ -175,7 +175,7 @@ document.querySelector('#route-1').addEventListener('click', function(e) {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
     triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
-    routeBtn.click()
+    // routeBtn.click()
 });
 
 document.querySelector('#route-2').addEventListener('click', function(e) {
@@ -183,7 +183,7 @@ document.querySelector('#route-2').addEventListener('click', function(e) {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
     triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
-    routeBtn.click()
+    // routeBtn.click()
 });
 
 document.querySelector('#route-3').addEventListener('click', function(e) {
@@ -191,7 +191,7 @@ document.querySelector('#route-3').addEventListener('click', function(e) {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
     triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
-    routeBtn.click()
+    // routeBtn.click()
 });
 
 function triggerGeocoderQuery(geocoder, query) {
