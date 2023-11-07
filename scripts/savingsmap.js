@@ -86,6 +86,13 @@ dieselInput.setAttribute('step', '0.1');
 // tripsInput.defaultValue = 10 
 tripsInput.setAttribute('min', '1');
 
+[trucksInput, dieselInput, tripsInput].forEach(input => {
+    console.log(input)
+    if (!input.value) {
+        input.value = input.placeholder
+    }
+})
+
 calculateBtn.onclick = (e) => {
     e.preventDefault()
 
