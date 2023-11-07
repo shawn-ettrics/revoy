@@ -104,16 +104,16 @@ calculateBtn.onclick = (e) => {
     console.log(tripsInput)
 
 
-    try {
-        [trucksInput, dieselInput, tripsInput].forEach(input => {
-            console.log(input.value)
-            if (!input.value) {
-                input.value = input.placeholder
-            }
-        })
-    } catch (error) {
-        console.error('Error in onclick handler:', error);
-    }
+    // try {
+    //     [trucksInput, dieselInput, tripsInput].forEach(input => {
+    //         console.log(input.value)
+    //         if (!input.value) {
+    //             input.value = input.placeholder
+    //         }
+    //     })
+    // } catch (error) {
+    //     console.error('Error in onclick handler:', error);
+    // }
     
     [trucksInput, dieselInput, tripsInput].forEach(input => {
         console.log(input.value)
