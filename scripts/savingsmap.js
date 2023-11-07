@@ -170,7 +170,7 @@ destinationGeocoder.on('clear', () => {
 })
 
 
-document.querySelector('#route-1').onclick( e => {
+document.querySelector('#route-1').addEventListener('click', function(e) {
     e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
@@ -178,7 +178,7 @@ document.querySelector('#route-1').onclick( e => {
     routeBtn.click()
 });
 
-document.querySelector('#route-2').onclick( e => {
+document.querySelector('#route-2').addEventListener('click', function(e) {
     e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
@@ -186,7 +186,7 @@ document.querySelector('#route-2').onclick( e => {
     routeBtn.click()
 });
 
-document.querySelector('#route-3').onclick( e => {
+document.querySelector('#route-3').addEventListener('click', function(e) {
     e.preventDefault();
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
