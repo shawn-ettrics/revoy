@@ -36,9 +36,19 @@ const destinationGeocoder = new MapboxGeocoder({
 
 const routeBtn = document.querySelector('#route-btn')
 disableBtn(routeBtn,true)
-// routeBtn.onclick = e => {
-//     e.preventDefault()
-// } 
+
+const calculateBtn = document.querySelector('#calculate-btn')
+
+calculateBtn.onclick = (e) => {
+    e.preventDefault()
+
+    [trucksInput, dieselInput, tripsInput].forEach(input => {
+        if (!input.value) {
+            input.value = input.placeholder
+        }
+    })
+    calculateMetrics()
+}
 
 function disableBtn(btn,disable) {
     if (disable) {
@@ -51,24 +61,16 @@ function disableBtn(btn,disable) {
 
 }
 
-const calculateBtn = document.querySelector('#calculate-btn')
-
-calculateBtn.onclick = (e) => {
-    e.preventDefault()
-
-    [trucksInput, dieselInput, tripsInput].forEach(input => {
-        if (!input.value) {
-            input.value = input.placeholder
-        }
-    })
-    
-    calculateMetrics()
-}
-
 
 
 document.getElementById('starting-point').appendChild(startingPointGeocoder.onAdd(map))
 document.getElementById('destination').appendChild(destinationGeocoder.onAdd(map))
+
+const hiddenInputs = document.querySelectorAll('form .hidden-wrapper input')
+hiddenInputs.forEach(input => {
+    console.log(input)
+})
+
 
 const geocoders = document.querySelectorAll('.mapboxgl-ctrl-geocoder')
 geocoders.forEach( geocoder => {
