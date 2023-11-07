@@ -58,7 +58,6 @@ function disableBtn(btn,disable) {
         btn.style.opacity = 1
         btn.style.pointerEvents = 'unset'
     }
-
 }
 
 
@@ -67,9 +66,6 @@ document.getElementById('starting-point').appendChild(startingPointGeocoder.onAd
 document.getElementById('destination').appendChild(destinationGeocoder.onAdd(map))
 
 const hiddenInputs = document.querySelectorAll('form .hidden-wrapper input')
-hiddenInputs.forEach(input => {
-    console.log(input)
-})
 
 
 const geocoders = document.querySelectorAll('.mapboxgl-ctrl-geocoder')
@@ -216,7 +212,7 @@ const handleResult = () => {
         getRoute()
     } else if (!predefinedRoute) {
         flyToValidPoint()
-        disableBtn(btn, true)
+        disableBtn(routeBtn, true)
     } 
 }
 
@@ -387,6 +383,29 @@ function calculateMetrics() {
     const savings = Math.round((totalMileage * (dieselPrice / 7)) * 0.05).toLocaleString('en-US', { maximumFractionDigits: 0 });
     const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.0010180 * 2205)).toLocaleString('en-US', { maximumFractionDigits: 0 });
     const totalTimeSaved = Math.round(timeSavedPerTrip * numOfTrucks * tripsPerMonth * (isRoundTrip ? 2 : 1));
+
+    hiddenInputs.forEach(input => {
+        switch (input.id) {
+            case 'start-hidden':
+                input.value = startingPoint
+                break;
+            case 'destination-hidden':
+                input.value = destination
+                break;
+            case 'dollars-hidden':
+                input.value = savings
+                break;
+            case 'co2-hidden':
+                input.value = CO2eSaved
+                break;
+            case 'time-hidden':
+                input.value = totalTimeSaved
+                break;
+            default:
+                console.log('missing value');
+        }
+        console.log(input.value)
+    })
 
     console.log('Number of Trucks:', numOfTrucks);
     console.log('Trips Per Month:', tripsPerMonth);
