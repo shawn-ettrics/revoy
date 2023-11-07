@@ -99,28 +99,18 @@ calculateBtn.onclick = (e) => {
     dieselInput = document.querySelector('#diesel-price')
     trucksInput = document.querySelector('#trucks')
 
-    console.log(trucksInput)
-    console.log(dieselInput)
-    console.log(tripsInput)
 
-
-    // try {
-    //     [trucksInput, dieselInput, tripsInput].forEach(input => {
-    //         console.log(input.value)
-    //         if (!input.value) {
-    //             input.value = input.placeholder
-    //         }
-    //     })
-    // } catch (error) {
-    //     console.error('Error in onclick handler:', error);
-    // }
+    try {
+        [trucksInput, dieselInput, tripsInput].forEach(input => {
+            console.log(input.value)
+            if (!input.value) {
+                input.value = input.placeholder
+            }
+        })
+    } catch (error) {
+        console.error('Error in onclick handler:', error);
+    }    
     
-    [trucksInput, dieselInput, tripsInput].forEach(input => {
-        console.log(input.value)
-        if (!input.value) {
-            input.value = input.placeholder
-        }
-    })
 
     calculateMetrics()
 }
