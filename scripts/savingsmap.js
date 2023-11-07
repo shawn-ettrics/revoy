@@ -106,12 +106,18 @@ calculateBtn.onclick = (e) => {
     console.log(dieselInput)
     console.log(tripsInput)
 
-    [trucksInput, dieselInput, tripsInput].forEach(input => {
-        console.log(input.value)
-        if (!input.value) {
-            input.value = input.placeholder
-        }
-    })
+    try {
+        [trucksInput, dieselInput, tripsInput].forEach(input => {
+            console.log(input)
+            if (!input.value) {
+                input.value = input.placeholder
+            }
+        })
+    } catch (error) {
+        console.error('Error in onclick handler:', error);
+    }
+    
+
     // calculateMetrics()
 }
 
