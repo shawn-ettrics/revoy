@@ -88,19 +88,15 @@ routeBtn.onclick = () => {
     dieselInput.setAttribute('step', '0.1');
     // tripsInput.defaultValue = 10 
     tripsInput.setAttribute('min', '1');
-
-    [trucksInput, dieselInput, tripsInput].forEach(input => {
-        console.log(input.value)
-        if (!input.value) {
-            input.value = input.placeholder
-        }
-    })
 }
 
 
 
 calculateBtn.onclick = (e) => {
     e.preventDefault()
+    tripsInput = document.querySelector('#trips')
+    dieselInput = document.querySelector('#diesel-price')
+    trucksInput = document.querySelector('#trucks')
 
     [trucksInput, dieselInput, tripsInput].forEach(input => {
         console.log(input.value)
