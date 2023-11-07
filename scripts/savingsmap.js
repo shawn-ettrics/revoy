@@ -437,9 +437,9 @@ function calculateMetrics() {
                 input.value = totalTimeSaved
                 break;
             default:
-                console.log('missing value');
+                input.value = 'missing value'
         }
-        console.log('hidden inputs', input, input.value)
+        console.log('hidden inputs', input.id, input.value)
     })
 }
 
