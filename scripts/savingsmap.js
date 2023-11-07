@@ -55,6 +55,13 @@ const calculateBtn = document.querySelector('#calculate-btn')
 
 calculateBtn.onclick = (e) => {
     e.preventDefault()
+
+    [trucksInput, dieselInput, tripsInput].forEach(input => {
+        if (!input.value) {
+            input.value = input.placeholder
+        }
+    })
+    
     calculateMetrics()
 }
 
@@ -93,13 +100,7 @@ tripsInput.setAttribute('min', '1');
 
 
 const form = document.querySelector('#mapbox')
-form.onsubmit = () => {
-    [trucksInput, dieselInput, tripsInput].forEach(input => {
-        if (!input.value) {
-            input.value = input.placeholder
-        }
-    })
-}
+
 
 
 const distanceSegment = 1 //(mile)
