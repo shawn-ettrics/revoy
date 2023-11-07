@@ -102,13 +102,10 @@ calculateBtn.onclick = (e) => {
     dieselInput = document.querySelector('#diesel-price')
     trucksInput = document.querySelector('#trucks')
 
-    console.log(trucksInput)
-    console.log(dieselInput)
-    console.log(tripsInput)
 
     try {
         [trucksInput, dieselInput, tripsInput].forEach(input => {
-            console.log(input)
+            console.log(input.value)
             if (!input.value) {
                 input.value = input.placeholder
             }
