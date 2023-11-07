@@ -75,19 +75,24 @@ geocoders.forEach( geocoder => {
     geocoder.style.width = '100%'
 } )
 
-const tripsInput = document.querySelector('#trips')
-const dieselInput = document.querySelector('#diesel-price')
-const trucksInput = document.querySelector('#trucks')
-// trucksInput.defaultValue = 5
-trucksInput.setAttribute('min', '1');
-// dieselInput.defaultValue = 4.5
-dieselInput.setAttribute('min', '0.1');
-dieselInput.setAttribute('step', '0.1');
-// tripsInput.defaultValue = 10 
-tripsInput.setAttribute('min', '1');
+let tripsInput, dieselInput, trucksInput
+
+routeBtn.onclick = () => {
+    tripsInput = document.querySelector('#trips')
+    dieselInput = document.querySelector('#diesel-price')
+    trucksInput = document.querySelector('#trucks')
+    // trucksInput.defaultValue = 5
+    trucksInput.setAttribute('min', '1');
+    // dieselInput.defaultValue = 4.5
+    dieselInput.setAttribute('min', '0.1');
+    dieselInput.setAttribute('step', '0.1');
+    // tripsInput.defaultValue = 10 
+    tripsInput.setAttribute('min', '1');
+}
+
 
 [trucksInput, dieselInput, tripsInput].forEach(input => {
-    console.log(input)
+    console.log(input.value)
     if (!input.value) {
         input.value = input.placeholder
     }
@@ -97,7 +102,7 @@ calculateBtn.onclick = (e) => {
     e.preventDefault()
 
     [trucksInput, dieselInput, tripsInput].forEach(input => {
-        console.log(input)
+        console.log(input.value)
         if (!input.value) {
             input.value = input.placeholder
         }
