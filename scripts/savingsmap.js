@@ -35,7 +35,7 @@ const destinationGeocoder = new MapboxGeocoder({
 })
 
 const routeBtn = document.querySelector('#route-btn')
-disableBtn(routeBtn,true)
+disableWfBtn(routeBtn,true)
 
 const calculateBtn = document.querySelector('#calculate-btn')
 
@@ -50,7 +50,7 @@ calculateBtn.onclick = (e) => {
     calculateMetrics()
 }
 
-function disableBtn(btn,disable) {
+function disableWfBtn(btn,disable) {
     if (disable) {
         btn.style.opacity = 0.7
         btn.style.pointerEvents = 'none'
@@ -208,11 +208,11 @@ function clearPoints() {
 // Function to handle route logic based on geocoder results
 const handleResult = () => {
     if (startingPointCoordinates && destinationCoordinates) {
-        disableBtn(routeBtn, false)
+        disableWfBtn(routeBtn, false)
         getRoute()
     } else if (!predefinedRoute) {
         flyToValidPoint()
-        disableBtn(routeBtn, true)
+        disableWfBtn(routeBtn, true)
     } 
 }
 
@@ -258,7 +258,7 @@ map.on('load', () => {
 
 
 const getRoute = () => {
-    disableBtn(calculateBtn, true)
+    disableWfBtn(calculateBtn, true)
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${startingPointCoordinates[0]},${startingPointCoordinates[1]};${destinationCoordinates[0]},${destinationCoordinates[1]}?access_token=${mapboxgl.accessToken}&geometries=geojson`;
     fetch(url)
         .then(response => response.json())
@@ -369,7 +369,7 @@ const calculateTimeSaved = (segments) => {
     timeSavedPerTrip = timeSaved.reduce((acc, curr) => acc + curr, 0) / 60; //convert back to hours
     totalElevationGain = elevationGains.reduce((acc, curr) => acc + curr, 0) * 5280; // Convert miles to feet
     
-    disableBtn(calculateBtn, false)
+    disableWfBtn(calculateBtn, false)
 };
 
 function calculateMetrics() {
