@@ -60,6 +60,10 @@ const hiddenInputs = document.querySelectorAll('form .hidden-wrapper input')
 
 const geocoders = document.querySelectorAll('.mapboxgl-ctrl-geocoder')
 geocoders.forEach( geocoder => {
+    const inputs = geocoder.querySelectorAll('input')
+    inputs.forEach(input => {
+        input.removeAttribute('name')
+    })
     geocoder.onmouseenter = () => {
         geocoder.style.zIndex = 10
     }
