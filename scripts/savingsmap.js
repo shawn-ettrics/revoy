@@ -112,7 +112,7 @@ calculateBtn.onclick = (e) => {
             input.value = input.placeholder
         }
     })
-    calculateMetrics()
+    // calculateMetrics()
 }
 
 
