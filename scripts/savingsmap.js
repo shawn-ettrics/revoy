@@ -89,9 +89,6 @@ routeBtn.onclick = () => {
     // tripsInput.defaultValue = 10 
     tripsInput.setAttribute('min', '1');
 
-    console.log(trucksInput)
-    console.log(dieselInput)
-    console.log(tripsInput)
 }
 
 
@@ -101,6 +98,10 @@ calculateBtn.onclick = (e) => {
     tripsInput = document.querySelector('#trips')
     dieselInput = document.querySelector('#diesel-price')
     trucksInput = document.querySelector('#trucks')
+
+    console.log(trucksInput)
+    console.log(dieselInput)
+    console.log(tripsInput)
 
 
     try {
@@ -114,6 +115,12 @@ calculateBtn.onclick = (e) => {
         console.error('Error in onclick handler:', error);
     }
     
+    [trucksInput, dieselInput, tripsInput].forEach(input => {
+        console.log(input.value)
+        if (!input.value) {
+            input.value = input.placeholder
+        }
+    })
 
     calculateMetrics()
 }
