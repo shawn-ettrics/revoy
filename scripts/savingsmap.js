@@ -419,7 +419,7 @@ function calculateMetrics() {
             default:
                 console.log('missing value');
         }
-        console.log(input.value)
+        console.log('hidden inputs', input.value)
     })
 
     console.log('Number of Trucks:', numOfTrucks);
