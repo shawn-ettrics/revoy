@@ -118,7 +118,7 @@ calculateBtn.onclick = (e) => {
     }
     
 
-    // calculateMetrics()
+    calculateMetrics()
 }
 
 
