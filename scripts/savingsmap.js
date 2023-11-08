@@ -34,7 +34,7 @@ const destinationGeocoder = new MapboxGeocoder({
     flyTo: false, // Disable the flyTo animation
 })
 
-const form = document.querySelector('#wf-form-Map-Form')
+const form = document.querySelector('#email-form')
 form.onsubmit = function(e) {
     e.preventDefault();
     console.log('form submit triggered')
