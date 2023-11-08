@@ -51,7 +51,7 @@ form.onsubmit = function(e) {
     })
 
 
-    this.submit(); // Call the form's submit method to continue the submission
+    // this.submit(); // Call the form's submit method to continue the submission
 };
 
 
