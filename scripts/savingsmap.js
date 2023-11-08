@@ -41,8 +41,14 @@ form.onsubmit = function(e) {
 
     const inputs = this.querySelectorAll('.mapboxgl-ctrl-geocoder input');
     inputs.forEach(input => {
+        console.log('geo', input)
         input.remove(); // This will remove the input from the DOM
     });
+
+    const allInputs = this.querySelectorAll('input')
+    allInputs.forEach(input => {
+        console.log(input)
+    })
 
 
     this.submit(); // Call the form's submit method to continue the submission
