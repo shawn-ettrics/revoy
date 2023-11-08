@@ -45,13 +45,7 @@ form.onsubmit = function(e) {
         input.remove(); // This will remove the input from the DOM
     });
 
-    const allInputs = this.querySelectorAll('input')
-    allInputs.forEach(input => {
-        console.log(input)
-    })
-
-
-    // this.submit(); // Call the form's submit method to continue the submission
+    this.submit(); // Call the form's submit method to continue the submission
 };
 
 
