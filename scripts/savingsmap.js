@@ -37,6 +37,7 @@ const destinationGeocoder = new MapboxGeocoder({
 const form = document.querySelector('#wf-form-Map-Form')
 form.onsubmit = function(e) {
     e.preventDefault();
+    console.log('form submit triggered')
 
     const inputs = this.querySelectorAll('.mapboxgl-ctrl-geocoder input');
     inputs.forEach(input => {
