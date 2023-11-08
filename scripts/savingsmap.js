@@ -34,6 +34,20 @@ const destinationGeocoder = new MapboxGeocoder({
     flyTo: false, // Disable the flyTo animation
 })
 
+const form = document.querySelector('#wf-form-Map-Form')
+form.onsubmit = function(e) {
+    e.preventDefault();
+
+    const inputs = this.querySelectorAll('.mapboxgl-ctrl-geocoder input');
+    inputs.forEach(input => {
+        input.remove(); // This will remove the input from the DOM
+    });
+
+
+    this.submit(); // Call the form's submit method to continue the submission
+};
+
+
 const routeBtn = document.querySelector('#route-btn')
 disableWfBtn(routeBtn,true)
 
@@ -60,10 +74,7 @@ const hiddenInputs = document.querySelectorAll('form .hidden-wrapper input')
 
 const geocoders = document.querySelectorAll('.mapboxgl-ctrl-geocoder')
 geocoders.forEach( geocoder => {
-    const inputs = geocoder.querySelectorAll('input')
-    inputs.forEach(input => {
-        input.removeAttribute('name')
-    })
+
     geocoder.onmouseenter = () => {
         geocoder.style.zIndex = 10
     }
