@@ -7,13 +7,16 @@ steps.forEach((step, i) => {
     const backBtn = step.querySelector('element[data-form="back-btn"]');
     const nextBtn = step.querySelector('element[data-form="next-btn"]');
     
-    backBtn.onclick = () => {
-        showStep(i-1)
+    if (backBtn) {
+        backBtn.onclick = () => {
+            showStep(i-1)
+        }
     }
-    nextBtn.onclick = () => {
-        showStep(i+1)
+    if (nextBtn) {
+        nextBtn.onclick = () => {
+            showStep(i+1)
+        }
     }
-    
 })
 
 form.onsubmit = function(e) {
