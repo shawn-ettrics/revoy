@@ -79,7 +79,7 @@ geocoders.forEach( geocoder => {
 
 let tripsInput, dieselInput, trucksInput
 
-routeBtn.onclick = () => {
+routeBtn.addEventListener('click', () => {
     tripsInput = document.querySelector('#trips')
     dieselInput = document.querySelector('#diesel-price')
     trucksInput = document.querySelector('#trucks')
@@ -90,12 +90,12 @@ routeBtn.onclick = () => {
     dieselInput.setAttribute('step', '0.1');
     // tripsInput.defaultValue = 10 
     tripsInput.setAttribute('min', '1');
-
-}
-
+})
 
 
-calculateBtn.onclick = (e) => {
+
+
+calculateBtn.addEventListener('click', () => {
     tripsInput = document.querySelector('#trips')
     dieselInput = document.querySelector('#diesel-price')
     trucksInput = document.querySelector('#trucks')
@@ -114,7 +114,7 @@ calculateBtn.onclick = (e) => {
     
 
     calculateMetrics()
-}
+})
 
 
 
@@ -188,21 +188,21 @@ destinationGeocoder.on('clear', () => {
 })
 
 
-document.querySelector('#route-1').onclick = (e) => {
+document.querySelector('#route-1').onclick = () => {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'New York City, NY');
     triggerGeocoderQuery(destinationGeocoder, 'Miami, FL');
     routeBtn.click()
 };
 
-document.querySelector('#route-2').onclick = (e) => {
+document.querySelector('#route-2').onclick = () => {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Denver, CO');
     triggerGeocoderQuery(destinationGeocoder, 'New Orleans, LA');
     routeBtn.click()
 };
 
-document.querySelector('#route-3').onclick = (e) => {
+document.querySelector('#route-3').onclick = () => {
     clearPoints()
     triggerGeocoderQuery(startingPointGeocoder, 'Los Angeles, CA');
     triggerGeocoderQuery(destinationGeocoder, 'Chicago, IL');
