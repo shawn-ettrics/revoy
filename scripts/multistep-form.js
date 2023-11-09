@@ -46,6 +46,8 @@ form.onsubmit = function(e) {
 
 function showStep(index) {
 
+    console.log('showStep called')
+
     steps.forEach(step => {
         step.style.display = 'none'
     })
