@@ -13,14 +13,14 @@ steps.forEach((step, i) => {
     console.log(backBtn, nextBtn)
     
     if (backBtn) {
-        onsole.log('bk btn exist')
+        console.log('bk btn exist')
         backBtn.onclick = () => {
             showStep(i-1)
             console.log('bk btn clicked')
         }
     }
     if (nextBtn) {
-        onsole.log('nx btn exist')
+        console.log('nx btn exist')
         nextBtn.onclick = () => {
             showStep(i+1)
             console.log('nx btn clicked')
