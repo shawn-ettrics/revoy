@@ -7,8 +7,8 @@ showStep(0)
 steps.forEach((step, i) => {
 
 
-    const backBtn = step.querySelector('element[data-form="back-btn"]');
-    const nextBtn = step.querySelector('element[data-form="next-btn"]');
+    const backBtn = step.querySelector('a[data-form="back-btn"]');
+    const nextBtn = step.querySelector('a[data-form="next-btn"]');
 
     console.log(backBtn, nextBtn)
     
