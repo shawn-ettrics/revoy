@@ -15,11 +15,13 @@ steps.forEach((step, i) => {
     if (backBtn) {
         backBtn.onclick = () => {
             showStep(i-1)
+            console.log('bk btn')
         }
     }
     if (nextBtn) {
         nextBtn.onclick = () => {
             showStep(i+1)
+            console.log('nx btn')
         }
     }
 })
