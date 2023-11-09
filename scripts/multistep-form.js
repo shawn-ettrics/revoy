@@ -41,5 +41,5 @@ function showStep(index) {
         step.style.display = 'none'
     })
 
-    steps[index].style.display = 'block'
+    steps[index].style.display = 'flex'
 }
