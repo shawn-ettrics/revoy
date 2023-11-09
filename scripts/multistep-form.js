@@ -6,7 +6,6 @@ showStep(0)
 
 steps.forEach((step, i) => {
 
-
     const backBtn = step.querySelector('a[data-form="back-btn"]');
     const nextBtn = step.querySelector('a[data-form="next-btn"]');
 
@@ -14,22 +13,21 @@ steps.forEach((step, i) => {
     
     if (backBtn) {
         console.log('bk btn exist')
-        backBtn.onclick = () => {
+        backBtn.addEventListener('click', () => {
             showStep(i-1)
             console.log('bk btn clicked')
-        }
+        })
     }
     if (nextBtn) {
         console.log('nx btn exist')
-        nextBtn.onclick = () => {
+        nextBtn.addEventListener('click', () => {
             showStep(i+1)
             console.log('nx btn clicked')
-        }
+        })
     }
 })
 
 form.onsubmit = function(e) {
-
 
     e.preventDefault();
     console.log('form submit triggered')
