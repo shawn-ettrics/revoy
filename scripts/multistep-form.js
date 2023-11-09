@@ -27,19 +27,18 @@ steps.forEach((step, i) => {
     }
 })
 
-form.onsubmit = function(e) {
-
+form.addEventListener('submit', (e) => {
     e.preventDefault();
     console.log('form submit triggered')
 
     const inputs = this.querySelectorAll('.mapboxgl-ctrl-geocoder input');
     inputs.forEach(input => {
         console.log('geo', input)
-        input.remove(); // This will remove the input from the DOM
+        input.remove()
     });
 
-    this.submit(); // Call the form's submit method to continue the submission
-};
+    this.submit()
+})
 
 
 function showStep(index) {
