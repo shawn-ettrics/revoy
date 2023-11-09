@@ -9,6 +9,8 @@ steps.forEach((step, i) => {
 
     const backBtn = step.querySelector('element[data-form="back-btn"]');
     const nextBtn = step.querySelector('element[data-form="next-btn"]');
+
+    console.log(backBtn, nextBtn)
     
     if (backBtn) {
         backBtn.onclick = () => {
