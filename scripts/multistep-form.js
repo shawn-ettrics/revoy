@@ -1,10 +1,11 @@
 const form = document.querySelector('#multistep-email-form')
 
-const steps = this.querySelectorAll('.form-calculator-wrapper')
+const steps = form.querySelectorAll('.form-calculator-wrapper')
 
 steps.forEach((step, i) => {
-    const backBtn = document.querySelector('element[data-form="back-btn"]');
-    const nextBtn = document.querySelector('element[data-form="next-btn"]');
+
+    const backBtn = step.querySelector('element[data-form="back-btn"]');
+    const nextBtn = step.querySelector('element[data-form="next-btn"]');
     
     backBtn.onclick = () => {
         showStep(i-1)
