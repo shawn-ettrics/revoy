@@ -4,6 +4,8 @@ const steps = form.querySelectorAll('.form-calculator-wrapper')
 
 steps.forEach((step, i) => {
 
+    step.style.display = 'none'
+
     const backBtn = step.querySelector('element[data-form="back-btn"]');
     const nextBtn = step.querySelector('element[data-form="next-btn"]');
     
