@@ -394,7 +394,7 @@ function calculateMetrics() {
     const baseMileage = turf.length(turf.lineString(route), { units: 'miles' });
     const totalMileage = baseMileage * (isRoundTrip ? 2 : 1) * numOfTrucks * tripsPerMonth;
     const savings = Math.round((totalMileage * (dieselPrice / 7)) * 0.05).toLocaleString('en-US', { maximumFractionDigits: 0 });
-    const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.0010180 * 1.10231)).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    const CO2eSaved = parseFloat((totalMileage * (1 / 7 - 1 / 30) * 0.010180 * 1.10231)).toLocaleString('en-US', { maximumFractionDigits: 0 });
     const totalTimeSaved = Math.round(timeSavedPerTrip * numOfTrucks * tripsPerMonth * (isRoundTrip ? 2 : 1));
 
     console.log('Number of Trucks:', numOfTrucks);
