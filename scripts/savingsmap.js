@@ -1,4 +1,4 @@
-const accessToken = 'pk.eyJ1Ijoic2hhd25jaGkyMDciLCJhIjoiY2t2eDM4eHVoMDBmazJucnBuODFtc3VnZCJ9.FWq9XiUtIMdqiS1wXqzzjQ'
+const accessToken = 'pk.eyJ1Ijoic2hhd25jaGkyMDciLCJhIjoiY2xwMXZ5OWwwMGl2dDJudDJheHVyNDRjOCJ9.9CJX2yXAGd_bfANH69FqOw'
 mapboxgl.accessToken = accessToken
 const styleURL = 'mapbox://styles/shawnchi207/clmr85qvx020z01rf835l7eco'
 const markerURL = 'https://uploads-ssl.webflow.com/644256fe693d807d873bf254/65284f0572370299d4c65015_marker.svg'
